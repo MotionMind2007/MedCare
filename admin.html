@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | MedCare Pharmacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .line {
+            display: block;
+            width: 100%;
+            height: 20px;
+            background: rgb(0, 50, 63);
+            margin: 0;
+        }
+
+        .box {
+            height: 80px;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        #logo {
+            height: 50px;
+            margin-left: 20px;
+        }
+
+        .admin-title {
+            color: rgb(0, 50, 63);
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #bb2d3b;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* Add Product Form */
+        .add-product {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .add-product h2 {
+            color: rgb(0, 50, 63);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: rgb(0, 50, 63);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 50, 63, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .description-field {
+            grid-column: span 2;
+        }
+
+        .submit-btn {
+            background: rgb(0, 50, 63);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            grid-column: span 2;
+            width: 200px;
+            justify-self: end;
+        }
+
+        .submit-btn:hover {
+            background: rgb(0, 40, 53);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 50, 63, 0.3);
+        }
+
+        /* Products List */
+        .products-list {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .list-header h2 {
+            color: rgb(0, 50, 63);
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .list-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .export-btn {
+            background: rgb(0, 50, 63);
+        }
+
+        .export-btn:hover {
+            background: rgb(0, 40, 53);
+        }
+
+        .import-btn {
+            background: #28a745;
+        }
+
+        .import-btn:hover {
+            background: #218838;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-table th {
+            font-weight: 500;
+            color: rgb(0, 50, 63);
+            background: #f8f9fa;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #bb2d3b;
+            transform: translateY(-2px);
+        }
+
+        .no-products {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+
+        .toast.success {
+            border-left: 4px solid #28a745;
+        }
+
+        .toast.error {
+            border-left: 4px solid #dc3545;
+        }
+
+        /* Add Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar h2 {
+            color: rgb(0, 50, 63);
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 5px 0;
+        }
+
+        .sidebar a:hover {
+            background: rgb(0, 50, 63);
+            color: white;
+        }
+
+        .back {
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .under {
+            background: rgb(0, 50, 63);
+            color: #d1d5db;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        .foot {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        .foot h2.hh {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .foot a {
+            color: #d1d5db;
+            text-decoration: none;
+            margin: 10px 0;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .foot a:hover {
+            color: white;
+        }
+
+        .id a {
+            font-size: 20px;
+            margin-right: 15px;
+            color: #d1d5db;
+        }
+
+        .id a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 40px;
+        }
+
+        /* Mobile Menu Button */
+        #menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: rgb(0, 50, 63);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content {
+                margin-left: 260px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .description-field {
+                grid-column: 1;
+            }
+
+            .submit-btn {
+                grid-column: 1;
+                width: 100%;
+            }
+
+            .product-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .content {
+                padding: 20px;
+                margin-left: 0;
+            }
+
+            .admin-title {
+                font-size: 20px;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            #menu {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .head {
+                padding: 10px;
+            }
+
+            #logo {
+                height: 40px;
+                margin-left: 10px;
+            }
+
+            .admin-title {
+                font-size: 18px;
+            }
+
+            .add-product,
+            .products-list {
+                padding: 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <span class="line"></span>
+    
+    <div class="box">
+        <div class="head">
+            <img id="logo" src="logo.jpg" alt="MedCare Pharmacy Logo">
+            <h1 class="admin-title">Admin Panel</h1>
+            <button class="logout-btn" onclick="logOut()">Log Out</button>
+            <span class="material-symbols-outlined" id="menu">menu</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="service.html">Services</a>
+        <a href="advice.html">Doctor Advice</a>
+        <a href="dcontact.html">Contact a Doctor</a>
+        <a href="ehelp.html">Emergency Help</a>
+        <a class="back">Back</a>
+    </div>
+
+    <div class="content">
+        <section class="add-product">
+            <h2>Add New Product</h2>
+            <form id="productForm" onsubmit="return addProduct(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Price</label>
+                        <input type="number" id="productPrice" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productBrand">Brand</label>
+                        <input type="text" id="productBrand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productId">Product ID</label>
+                        <input type="text" id="productId" required>
+                    </div>
+                    <div class="form-group description-field">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Add Product</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="products-list">
+            <div class="list-header">
+                <h2>Product List</h2>
+                <div class="list-actions">
+                    <button onclick="exportToJson()" class="action-btn export-btn">
+                        <i class="fas fa-download"></i> Export to JSON
+                    </button>
+                    <label class="action-btn import-btn">
+                        <i class="fas fa-upload"></i> Import
+                        <input type="file" accept=".json" onchange="importProducts(event)" style="display: none;">
+                    </label>
+                </div>
+            </div>
+            <div id="productsTable">
+                <!-- Products will be inserted here -->
+            </div>
+        </section>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="under">
+        <div class="foot">
+            <div class="use">
+                <h2 class="hh">Some useful link</h2>
+                <p>Email: <a href="mailto:support@gmail.com">support@gmail.com</a></p>
+                <p>Phone: <a href="tel:+01329053258">+01329053258</a></p>
+            </div>
+            <div class="quick">
+                <h2 class="hh">Quick Link</h2>
+                <a href="index.html">> Home</a>
+                <a href="about.html">> About Us</a>
+                <a href="service.html">> Services</a>
+                <a href="advice.html">> Doctor Advice</a>
+                <a href="dcontact.html">> Contact a Doctor</a>
+                <a href="ehelp.html">> Emergency Help</a>
+            </div>
+            <div class="id">
+                <a href="https://www.facebook.com/yourpage" target="_blank"><i class="fa-brands fa-facebook" id="socialid"></i></a>
+                <a href="https://www.instagram.com/yourpage" target="_blank"><i class="fa-brands fa-instagram" id="socialid"></i></a>
+                <a href="mailto:support@gmail.com" target="_blank"><i class="fa-solid fa-envelope" id="socialid"></i></a>
+                <a href="https://www.twitter.com/yourpage" target="_blank"><i class="fab fa-twitter" id="socialid"></i></a>
+            </div>
+        </div>
+        <p class="copyright">© <span id="year"></span> MedCare Pharmacy. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        function checkAdminAccess() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                alert('আপনাকে প্রথমে লগ ইন করতে হবে!');
+                window.location.href = 'index.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Log out function
+        function logOut() {
+            if (confirm('আপনি কি লগ আউট করতে চান?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Auto year update
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const menuButton = document.getElementById('menu');
+        const sidebar = document.querySelector('.sidebar');
+        const back = document.querySelector('.back');
+
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        back.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuButton.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Function to save products
+        function saveProducts(products) {
+            // Save to localStorage
+            localStorage.setItem('medcare_products', JSON.stringify(products));
+            
+            // Update the display
+            loadProducts();
+            showToast('Products saved successfully!', 'success');
+        }
+
+        // Export to JSON file (only when clicked on Export button)
+        function exportToJson() {
+            const products = JSON.parse(localStorage.getItem('medcare_products')) || [];
+            const jsonData = JSON.stringify({ products: products }, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'products.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            
+            showToast('Products exported to JSON file!', 'success');
+        }
+
+        // Function to load products from both sources
+        async function loadProducts() {
+            let products = [];
+
+            // Try to load from localStorage first
+            const localProducts = JSON.parse(localStorage.getItem('medcare_products')) || [];
+            products = localProducts;
+
+            // Try to load from JSON file
+            try {
+                const response = await fetch('products.json');
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    // Merge products from both sources, removing duplicates
+                    const allProducts = [...localProducts, ...jsonData.products];
+                    products = Array.from(new Map(allProducts.map(item => [item.id, item])).values());
+                    // Update localStorage with merged data
+                    localStorage.setItem('medcare_products', JSON.stringify(products));
+                }
+            } catch (error) {
+                console.error('Error loading from JSON:', error);
+                showToast('Using locally saved products only', 'error');
+            }
+
+            // Update the UI
+            displayProducts(products);
+        }
+
+        // Function to display products in the table
+        function displayProducts(products) {
+            const tableContainer = document.getElementById('productsTable');
+
+            if (products.length === 0) {
+                tableContainer.innerHTML = '<p class="no-products">No products added yet.</p>';
+                return;
+            }
+
+            let html = `
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            products.forEach(product => {
+                html += `
+                    <tr>
+                        <td>${product.id}</td>
+                        <td>${product.name}</td>
+                        <td>${product.brand}</td>
+                        <td>$${product.price}</td>
+                        <td>
+                            <button class="delete-btn" onclick="deleteProduct('${product.id}')">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            tableContainer.innerHTML = html;
+        }
+
+        // Add new product
+        async function addProduct(event) {
+            event.preventDefault();
+
+            const product = {
+                id: document.getElementById('productId').value,
+                name: document.getElementById('productName').value,
+                brand: document.getElementById('productBrand').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                description: document.getElementById('productDescription').value,
+                dateAdded: new Date().toISOString()
+            };
+
+            let products = JSON.parse(localStorage.getItem('medcare_products')) || [];
+            
+            // Check if product ID already exists
+            if (products.some(p => p.id === product.id)) {
+                showToast('Product ID already exists!', 'error');
+                return false;
+            }
+
+            products.push(product);
+            await saveProducts(products);
+            
+            document.getElementById('productForm').reset();
+            await loadProducts();
+            showToast('Product added successfully!', 'success');
+            return false;
+        }
+
+        // Delete product
+        async function deleteProduct(productId) {
+            if (!confirm('Are you sure you want to delete this product?')) {
+                return;
+            }
+
+            let products = JSON.parse(localStorage.getItem('medcare_products')) || [];
+            products = products.filter(p => p.id !== productId);
+            await saveProducts(products);
+            
+            await loadProducts();
+            showToast('Product deleted successfully!', 'success');
+        }
+
+        // Export products to JSON file
+        function exportProducts() {
+            const products = JSON.parse(localStorage.getItem('medcare_products')) || [];
+            const dataStr = JSON.stringify({ products: products }, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'products_backup.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Import products from JSON file
+        function importProducts(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.products && Array.isArray(data.products)) {
+                        await saveProducts(data.products);
+                        await loadProducts();
+                        showToast('Products imported successfully!', 'success');
+                    } else {
+                        throw new Error('Invalid file format');
+                    }
+                } catch (error) {
+                    showToast('Error importing products: Invalid file format', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Load products when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            if (!checkAdminAccess()) {
+                return;
+            }
+            loadProducts();
+        });
+    </script>
+</body>
+</html>

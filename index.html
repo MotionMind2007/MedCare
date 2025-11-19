@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediShop BD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <div class="overlay"></div>
+    <span class="line"></span>
+    
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('signInModal')">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signInForm" onsubmit="handleSignIn(event)">
+                <div class="form-group">
+                    <label for="signInEmail">Email</label>
+                    <input type="email" id="signInEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signInPassword">Password</label>
+                    <input type="password" id="signInPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="signInConfirm">Confirm Password</label>
+                    <input type="password" id="signInConfirm" required>
+                </div>
+                <button type="submit" class="modal-btn">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Log In Modal -->
+    <div id="logInModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('logInModal')">&times;</span>
+            <h2>Log In</h2>
+            <form id="logInForm" onsubmit="handleLogIn(event)">
+                <div class="form-group">
+                    <label for="logInEmail">Email</label>
+                    <input type="email" id="logInEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="logInPassword">Password</label>
+                    <input type="password" id="logInPassword" required>
+                </div>
+                <button type="submit" class="modal-btn">Log In</button>
+            </form>
+            <p class="modal-footer">Don't have an account? <a href="#" onclick="switchModal('logInModal', 'signInModal'); return false;">Sign In</a></p>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="box">
+        <div class="head">
+            <img id="logo" src="logo.jpeg" alt="Company Logo">
+            <div class="search-container">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" class="searchbar" placeholder="Search here..." autocomplete="off">
+            </div>
+            <div class="login_signin">
+                <button class="login" onclick="openModal('logInModal')">Log in</button>
+                <button class="signin" onclick="openModal('signInModal')">Sign in</button>
+            </div>
+            <span class="material-symbols-outlined" id="menu">menu</span>
+        </div>
+    </div>
+
+    <!-- Sidebar - Right Side -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="about.html">About</a>
+        <a href="service.html">Services</a>
+        <a href="advice.html">Doctor Advice</a>
+        <a href="dcontact.html">Contact a Doctor</a>
+        <a href="ehelp.html">Emergency Help</a>
+        <a class="back">Back</a>
+    </div>
+
+    <div class="content">
+        <!-- Products will be loaded here dynamically -->
+    </div>
+    <footer class="under">
+            <span class="footerbox"></span>
+            <div class="foot">
+                <div class="use">
+                    <h2 class="hh">Some useful link</h2>
+                    <p>Email: <a href="mailto:support@gamil.com">support@gamil.com</a></p>
+                    <p>Phone: <a href="tel:+01329053258">+01329053258</a></p>
+                </div>
+                <div class="quick">
+                    <h2 class="hh">Quick Link</h2>
+                    <a href="index.html">> Home</a>
+                    <a href="about.html">> About Us</a>
+                    <a href="service.html">> Services</a>
+                    <a href="advice.html">> Doctor Advice</a>
+                    <a href="dcontact.html">> Contact a Doctor</a>
+                    <a href="ehelp.html">> Emergency Help</a>
+                </div>
+                <div class="id">
+                    <a href="https://www.facebook.com/yourpage" target="_blank"><i class="fa-brands fa-facebook" id="socialid"></i></a>
+                    <a href="https://www.instagram.com/yourpage" target="_blank"><i class="fa-brands fa-instagram" id="socialid"></i></a>
+                    <a href="mailto:support@gamil.com" target="_blank"><i class="fa-solid fa-envelope" id="socialid"></i></a>
+                    <a href="https://www.twetter.com/yourpage" target="_blank"><i class="fab fa-twitter" id="socialid"></i></a>
+                </div>
+            </div>
+            <p class="copyright">© <span id="year"></span> MedCare Pharmacy. All rights reserved.</p>
+        </footer>
+
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <span class="close-popup">×</span>
+        <div class="details-container"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

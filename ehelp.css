@@ -1,0 +1,412 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.line {
+    display: block;
+    width: 100%;
+    height: 20px;
+    background: rgb(0, 50, 63);
+    margin: 0;
+}
+
+.box {
+    height: 80px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 15px;
+}
+
+#logo {
+    height: 50px;
+    margin-left: 20px;
+}
+
+.login_signin {
+    display: flex;
+    gap: 10px;
+}
+
+.login, .signin {
+    font-size: 16px;
+    padding: 10px 18px;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login {
+    background: white;
+    color: rgb(0, 50, 63);
+    border-color: rgb(0, 50, 63);
+}
+
+.signin {
+    background: rgb(0, 50, 63);
+    color: white;
+}
+
+.login:hover, .signin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.sidebar h2 {
+    color: rgb(0, 50, 63);
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 15px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin: 5px 0;
+}
+
+.sidebar a:hover {
+    background: rgb(0, 50, 63);
+    color: white;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+    flex: 1;
+}
+
+/* Emergency Banner */
+.emergency-banner {
+    background: #dc3545;
+    color: white;
+    padding: 40px;
+    border-radius: 15px;
+    margin-bottom: 60px;
+}
+
+.emergency-banner h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.emergency-banner i {
+    margin-right: 15px;
+}
+
+.emergency-contact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.contact-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.contact-item i {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.phone-number {
+    display: block;
+    font-size: 2em;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+/* Emergency Info */
+.emergency-info {
+    margin-bottom: 60px;
+}
+
+.emergency-info h2 {
+    color: rgb(0, 50, 63);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.situation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.situation-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.situation-card:hover {
+    transform: translateY(-5px);
+}
+
+.situation-card i {
+    font-size: 2em;
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.situation-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.situation-card ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.situation-card ul li {
+    color: #666;
+    margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.situation-card ul li:before {
+    content: "•";
+    color: #dc3545;
+    position: absolute;
+    left: 0;
+}
+
+.situation-card .action {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* First Aid Section */
+.first-aid {
+    margin-bottom: 60px;
+}
+
+.first-aid h2 {
+    color: rgb(0, 50, 63);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.first-aid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.first-aid-item {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.first-aid-item h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.first-aid-item ol {
+    padding-left: 20px;
+}
+
+.first-aid-item ol li {
+    color: #666;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+/* Emergency Locations */
+.emergency-locations {
+    margin-bottom: 60px;
+}
+
+.emergency-locations h2 {
+    color: rgb(0, 50, 63);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.location-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.location-card:hover {
+    transform: translateY(-5px);
+}
+
+.location-card i {
+    font-size: 2em;
+    color: rgb(0, 50, 63);
+    margin-bottom: 15px;
+}
+
+.location-card h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.location-card p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.contact-number {
+    display: block;
+    color: rgb(0, 50, 63);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.directions {
+    display: inline-block;
+    background: rgb(0, 50, 63);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.directions:hover {
+    background: rgb(0, 70, 83);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.under {
+    background: rgb(0, 50, 63);
+    color: #d1d5db;
+    padding: 40px 20px;
+    margin-top: auto;
+}
+
+.foot {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.foot h3 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.foot a {
+    color: #d1d5db;
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.foot a:hover {
+    color: white;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    font-size: 20px;
+}
+
+.copyright {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .emergency-contact {
+        grid-template-columns: 1fr;
+    }
+
+    .foot {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
