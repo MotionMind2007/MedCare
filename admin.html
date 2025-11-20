@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
     <style>
         * {
             margin: 0;
@@ -60,8 +62,8 @@
         }
 
         .logout-btn {
-            background: #dc3545;
-            color: white;
+            background: #7854C6;
+            color: white !important;
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
@@ -69,10 +71,11 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .logout-btn:hover {
-            background: #bb2d3b;
+            background: #6036BE;
             transform: translateY(-2px);
         }
 
@@ -317,6 +320,7 @@
 
         .back {
             cursor: pointer;
+            display: none;
         }
 
         /* Footer */
@@ -373,7 +377,6 @@
         /* Mobile Menu Button */
         #menu {
             display: none;
-            font-size: 24px;
             cursor: pointer;
             color: rgb(0, 50, 63);
         }
@@ -419,6 +422,7 @@
 
             .sidebar.active {
                 transform: translateX(0);
+                left: 120px;
             }
 
             #menu {
@@ -453,12 +457,11 @@
 </head>
 <body>
     <span class="line"></span>
-    
+
     <div class="box">
         <div class="head">
             <img id="logo" src="logo.jpg" alt="MedCare Pharmacy Logo">
             <h1 class="admin-title">Admin Panel</h1>
-            <button class="logout-btn" onclick="logOut()">Log Out</button>
             <span class="material-symbols-outlined" id="menu">menu</span>
         </div>
     </div>
@@ -472,6 +475,7 @@
         <a href="dcontact.html">Contact a Doctor</a>
         <a href="ehelp.html">Emergency Help</a>
         <a class="back">Back</a>
+        <a class="logout-btn" onclick="logOut()">Log Out</a>
     </div>
 
     <div class="content">
@@ -598,7 +602,7 @@
         function saveProducts(products) {
             // Save to localStorage
             localStorage.setItem('medcare_products', JSON.stringify(products));
-            
+
             // Update the display
             loadProducts();
             showToast('Products saved successfully!', 'success');
@@ -617,7 +621,7 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(a.href);
-            
+
             showToast('Products exported to JSON file!', 'success');
         }
 
@@ -706,7 +710,7 @@
             };
 
             let products = JSON.parse(localStorage.getItem('medcare_products')) || [];
-            
+
             // Check if product ID already exists
             if (products.some(p => p.id === product.id)) {
                 showToast('Product ID already exists!', 'error');
@@ -715,7 +719,7 @@
 
             products.push(product);
             await saveProducts(products);
-            
+
             document.getElementById('productForm').reset();
             await loadProducts();
             showToast('Product added successfully!', 'success');
@@ -731,7 +735,7 @@
             let products = JSON.parse(localStorage.getItem('medcare_products')) || [];
             products = products.filter(p => p.id !== productId);
             await saveProducts(products);
-            
+
             await loadProducts();
             showToast('Product deleted successfully!', 'success');
         }
@@ -742,7 +746,7 @@
             const dataStr = JSON.stringify({ products: products }, null, 2);
             const blob = new Blob([dataStr], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
-            
+
             const a = document.createElement('a');
             a.href = url;
             a.download = 'products_backup.json';
