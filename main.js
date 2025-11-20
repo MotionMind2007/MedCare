@@ -82,6 +82,7 @@ async function loadProducts() {
 }
 
 // Function to display products in the content area
+// displayProducts function er last e ei code add kor
 function displayProducts(products) {
   const contentDiv = document.querySelector('.content');
   if (!contentDiv) return;
@@ -97,7 +98,7 @@ function displayProducts(products) {
             <div class="boxx">
                 <h2>${product.name}</h2>
                 <h5>${product.brand}</h5>
-                <h6>$${product.price}</h6>
+                <h6>৳${product.price}</h6>
                 <p>${product.description}</p>
                 <button class="see-more">See More</button>
             </div>
@@ -106,14 +107,24 @@ function displayProducts(products) {
   
   contentDiv.innerHTML = html;
   
-  // Add event listeners for "See More" buttons
-  document.querySelectorAll('.see-more').forEach(button => {
-    button.addEventListener('click', function() {
-      const productBox = this.parentElement;
-      const description = productBox.querySelector('p');
-      if (description) {
-        description.style.display = description.style.display === 'none' ? 'block' : 'none';
-      }
+  // EVENT DELEGATION - Ei line add kor (sab theke important!)
+  document.querySelectorAll('.see-more').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest(".boxx");
+      const title = card.querySelector("h2").textContent;
+      const price = card.querySelector("h6").textContent;
+      const brand = card.querySelector("h5").textContent;
+      const desc = card.querySelector("p").textContent;
+      
+      detailsContainer.innerHTML = `
+              <h2>${title}</h2>
+              <p><strong>Price:</strong> ${price}</p>
+              <p><strong>Brand:</strong> ${brand}</p>
+              <p>${desc}</p>
+              <button class="buy-btn" onclick="alert('Added to cart!')">Buy Now</button>
+          `;
+      popup.classList.add("active");
+      overlay.classList.add("active");
     });
   });
 }
@@ -326,3 +337,5 @@ function selectProduct(productId) {
   // Or show a popup with product details
   alert(`পণ্য: ${product.name}\nব্র্যান্ড: ${product.brand}\nমূল্য: ৳ ${product.price}\n\nবিবরণ: ${product.description}`);
 }
+// DOMContentLoaded er moddhe add kor
+document.getElementById('year').textContent = new Date().getFullYear();
